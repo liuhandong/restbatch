@@ -12,8 +12,8 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-@ComponentScan(basePackages = {"com.soni.config","com.soni.repository"})
-//@PropertySource(value={"classpath:application.properties"})
+@ComponentScan(basePackages = {"com.soni"/*,"com.soni.config","com.soni.repository"*/})
+@PropertySource(value={"classpath:application.properties"})
 //,excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION,value = EnableWebMvc.class)}
 public class RootConfig {	
     

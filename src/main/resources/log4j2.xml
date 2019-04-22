@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--设置log4j2的自身log级别为warn-->
-<configuration status="warn">
+<configuration status="INFO">
 
     <appenders>
         <console name="Console" target="SYSTEM_OUT">
@@ -51,7 +51,7 @@
         </logger>
 <!--         <logger name="org.hibernate" level="INFO"> -->
 <!--         </logger> -->
-        <root level="all">
+        <root level="INFO">
             <appender-ref ref="Console"/>
 <!--             <appender-ref ref="RollingFileInfo"/> -->
 <!--             <appender-ref ref="RollingFileWarn"/> -->
