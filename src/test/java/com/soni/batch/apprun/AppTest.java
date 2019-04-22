@@ -3,16 +3,10 @@ package com.soni.batch.apprun;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 
-import static org.hamcrest.Matchers.*;
-//import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.batch.core.JobParameters;
@@ -23,15 +17,16 @@ import org.springframework.batch.core.repository.JobExecutionAlreadyRunningExcep
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import com.soni.config.PersonJobConfig;
+import com.soni.config.RootConfig;
+import com.soni.config.WebConfig;
 import com.soni.repository.CustomizedRepository;
 import com.soni.web.init.WebAppInitializer;
 
@@ -42,16 +37,10 @@ import junit.framework.TestCase;
  * @author handong.liu
  *
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = WebAppInitializer.class)
+@RunWith(SpringRunner.class)
+@ContextConfiguration(/*initializers = CustomContextIntializer.class,*/classes = {WebAppInitializer.class, RootConfig.class,WebConfig.class ,PersonJobConfig.class})
 @WebAppConfiguration
-//@SpringBootTest
 public class AppTest extends TestCase {
-	
-	@Autowired 
-    private WebApplicationContext ctx;
-
-    private MockMvc mockMvc;
 
 	@Autowired
 	private CustomizedRepository customizedRepository;
@@ -61,13 +50,6 @@ public class AppTest extends TestCase {
 	
 	@Autowired
 	PersonJobConfig appConfig;
-	
-	@Before 
-	public void setUp() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-    }
-	
-
 	
 	// MyBatis insert
 	@Test
@@ -130,11 +112,4 @@ insert into person (name,age,nation,address) value('test04',18,'china','dalian')
 			e.printStackTrace();
 		}
 	}
-	
-	@Test
-    public void testShowHome() throws Exception {
-        mockMvc.perform(
-                MockMvcRequestBuilders.get("/home"))
-                .andExpect(status().isOk());
-    }
 }
