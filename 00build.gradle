@@ -1,0 +1,52 @@
+apply plugin: 'java'
+
+buildscript {
+  ext {
+    springframeworkVersion = "4.3.8.RELEASE"
+  }
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+  }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://artifacts.alfresco.com/nexus/content/repositories/public/'}
+    maven { url 'http://172.18.79.4/nexus/repository/maven_mvno_group' }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/java'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.ntt.coss:CommLib:1.0.0'
+    compile 'commons-lang:commons-lang:2.5'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.8'
+    compile 'com.alibaba:fastjson:1.1.23'
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile "org.springframework:spring-webmvc:${springframeworkVersion}"
+}
+
+processResources {
+    from 'src/main/resources'
+    exclude '*.xml'
+    exclude '*.properties'
+    exclude '*xml.*'
+    exclude '*properties.*'
+}
+
+jar {
+    baseName = 'api-co'
+}
+
+def defaultEncoding = 'CP943C'
+compileJava {
+    options.encoding = defaultEncoding
+}
