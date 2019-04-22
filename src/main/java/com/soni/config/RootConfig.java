@@ -21,7 +21,7 @@ public class RootConfig {
     public String url;
 	@Value("${spring.datasource.driver-class-name}")
     public String jdbcname;
-	@Value("${spring.datasource.root}")
+	@Value("${spring.datasource.username}")
     public String user;
 	@Value("${spring.datasource.password}")
     public String password;
