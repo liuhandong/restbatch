@@ -11,8 +11,8 @@ import org.springframework.batch.core.repository.JobExecutionAlreadyRunningExcep
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.BeansException;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+//import org.springframework.boot.SpringApplication;
+//import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -20,32 +20,32 @@ import org.springframework.context.annotation.ComponentScan;
 
 
 
-@SpringBootApplication
+//@SpringBootApplication
 @ComponentScan("com.soni.config,com.soni.batch.writer,com.soni.batch.reader,com.soni.repository,com.soni.controller")
 public class Application /*implements CommandLineRunner*/
 {
 	
     public static void main( String[] args )
     {
-    	ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
-    	
-    	JobLauncher jobLauncher = ctx.getBean(JobLauncher.class);
-    	JobParameters jobParameters = new JobParametersBuilder()
-                .addDate("date", new Date())
-                .toJobParameters();
-        try {
-			jobLauncher.run(ctx.getBean("personJob", Job.class), jobParameters);
-		} catch (BeansException e) {
-			e.printStackTrace();
-		} catch (JobExecutionAlreadyRunningException e) {
-			e.printStackTrace();
-		} catch (JobRestartException e) {
-			e.printStackTrace();
-		} catch (JobInstanceAlreadyCompleteException e) {
-			e.printStackTrace();
-		} catch (JobParametersInvalidException e) {
-			e.printStackTrace();
-		}
+//    	ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
+//    	
+//    	JobLauncher jobLauncher = ctx.getBean(JobLauncher.class);
+//    	JobParameters jobParameters = new JobParametersBuilder()
+//                .addDate("date", new Date())
+//                .toJobParameters();
+//        try {
+//			jobLauncher.run(ctx.getBean("personJob", Job.class), jobParameters);
+//		} catch (BeansException e) {
+//			e.printStackTrace();
+//		} catch (JobExecutionAlreadyRunningException e) {
+//			e.printStackTrace();
+//		} catch (JobRestartException e) {
+//			e.printStackTrace();
+//		} catch (JobInstanceAlreadyCompleteException e) {
+//			e.printStackTrace();
+//		} catch (JobParametersInvalidException e) {
+//			e.printStackTrace();
+//		}
     }
 /*
 	@Override

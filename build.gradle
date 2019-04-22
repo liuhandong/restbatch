@@ -1,25 +1,31 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+//apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+
 buildscript {
     ext {
-        springBootVersion = '2.1.2.RELEASE'
+    	dependencyManagementPluginVersion="1.0.6.RELEASE"
+        //springBootVersion = '2.1.2.RELEASE'
+        springVersion = '5.1.4.RELEASE'
     }
     repositories {
         //mavenCentral()
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        //classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementPluginVersion}"
     }
 }
-// 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-//apply plugin: 'war'
+
 
 group = 'com.sony.batch'
 version = '0.0.1'
 sourceCompatibility = 1.8
+//project.sourceCompatibility=1.11
+//project.targetCompatibility=1.11
 
 
 repositories {
@@ -28,13 +34,44 @@ repositories {
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-configuration-processor')
-    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1')
-    compile('org.springframework.boot:spring-boot-starter-web')
+	compile "org.apache.tomcat:tomcat-servlet-api:8.0.24"
+	compile "org.springframework:spring-beans:${springVersion}"
+	compile "org.springframework:spring-context:${springVersion}"
+	compile "org.springframework:spring-context-support:${springVersion}"
+	compile "org.springframework:spring-web:${springVersion}"
+	compile "org.springframework:spring-webmvc:${springVersion}"
+	compile "org.springframework.batch:spring-batch-core:4.1.1.RELEASE"
+	compile "javax.validation:validation-api:2.0.1.Final"
+	compile "org.springframework:spring-tx:${springVersion}"
+	compile "mysql:mysql-connector-java:8.0.13"
+	compile "org.mybatis:mybatis-spring:2.0.1"
+	compile "org.mybatis:mybatis:3.4.6"
+	compile "org.springframework:spring-jdbc:${springVersion}"
+	compile "org.springframework:spring-test:${springVersion}"
+	
+	
+	
+	
+	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: '2.11.1'
+    //compile group: 'org.slf4j', name: 'jul-to-slf4j', version: '1.7.25'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'   
+    
+    //compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.5.0'
+
+
     runtimeOnly('mysql:mysql-connector-java')
-    compile('org.springframework.boot:spring-boot-starter-batch')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('org.springframework.batch:spring-batch-test')
+    //compile('org.springframework.boot:spring-boot-starter-batch')
+    //testCompile('org.springframework.boot:spring-boot-starter-test')
+    //testCompile('org.springframework.batch:spring-batch-test:'5.1.4.RELEASE)
     testCompile(group: 'junit', name: 'junit', version: '4.12')
 }
 
+
+project.webAppDirName = 'WebContent'
+
+def defaultEncoding = 'UTF-8'
+compileJava {
+  options.encoding = defaultEncoding
+}
